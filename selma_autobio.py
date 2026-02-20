@@ -37,12 +37,10 @@ elif page == "Portfolio":
 	col1, col2 = st.columns(2)
 	with col1:
 		st.subheader("CourseCompanion")
-		st.image("https://raw.githubusercontent.com/SecongKoylaaa/CSIT327-G6-Group12-CourseCompanion/Selma/assets/coursecompanion.png", caption="CourseCompanion: Academic Planner & Resource Hub", width=400)
 		st.markdown("[View on GitHub](https://github.com/SecongKoylaaa/CSIT327-G6-Group12-CourseCompanion/tree/Selma)")
 		st.write("A web app for students to organize courses, track deadlines, and access learning resources. Built with Django and React.")
 	with col2:
 		st.subheader("PURR")
-		st.image("https://raw.githubusercontent.com/kiyoder/Purr/selma/assets/purr_logo.png", caption="PURR: Pet Adoption Platform", width=400)
 		st.markdown("[View on GitHub](https://github.com/kiyoder/Purr/tree/selma)")
 		st.write("A platform connecting pet adopters and shelters. Features pet profiles, search, and adoption workflow. Built with Flask and React.")
 	st.markdown("---")
@@ -87,12 +85,25 @@ elif page == "Contact":
 
 elif page == "Gallery":
 	st.title("🖼️ Gallery")
-	st.write("A glimpse into my creative side:")
-	img_urls = [
-		"https://images.unsplash.com/photo-1519125323398-675f0ddb6308",
-		"https://images.unsplash.com/photo-1500534314209-a25ddb2bd429",
-		"https://images.unsplash.com/photo-1465101046530-73398c7f28ca"
-	]
-	st.image(img_urls, width=300, caption=["Nature 1", "Nature 2", "Nature 3"])
+	st.write("A glimpse into my interests side:")
+	import os
+	gallery_dir = "gallery"
+	gallery_files = [f for f in os.listdir(gallery_dir) if f.lower().endswith((".jpg", ".jpeg", ".png")) and f != "pfp.jpg"]
+	gallery_paths = [os.path.join(gallery_dir, f) for f in gallery_files]
+	from PIL import Image
+	if gallery_paths:
+		col1, col2 = st.columns(2)
+		for idx, (img_path, caption) in enumerate(zip(gallery_paths, gallery_files)):
+			img = Image.open(img_path)
+			width, height = img.size
+			display_width = min(width, 600)
+			if idx % 2 == 0:
+				with col1:
+					st.image(img, width=display_width, caption=caption)
+			else:
+				with col2:
+					st.image(img, width=display_width, caption=caption)
+	else:
+		st.info("No gallery images found.")
 	st.write("---")
 	st.info("More coming soon!")
