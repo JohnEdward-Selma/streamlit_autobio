@@ -96,13 +96,12 @@ elif page == "Gallery":
 		for idx, (img_path, caption) in enumerate(zip(gallery_paths, gallery_files)):
 			img = Image.open(img_path)
 			width, height = img.size
-			display_width = min(width, 600)
 			if idx % 2 == 0:
 				with col1:
-					st.image(img, width=display_width, caption=caption)
+					st.image(img, caption=caption)
 			else:
 				with col2:
-					st.image(img, width=display_width, caption=caption)
+					st.image(img, caption=caption)
 	else:
 		st.info("No gallery images found.")
 	st.write("---")
